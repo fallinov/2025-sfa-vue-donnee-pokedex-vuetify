@@ -1,6 +1,6 @@
 {
-  "name": "2025-sfa-vue-exe-bases",
-  "version": "0.0.0",
+  "name": "ch.kode.donnee-pkedex-vuetify",
+  "version": "0.1.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

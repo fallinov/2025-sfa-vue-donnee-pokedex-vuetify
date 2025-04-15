@@ -10,14 +10,13 @@ import { defineConfig } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  // base: '/vue-bases/', // Chemin de base de l'application
+export default defineConfig(({ mode }) => ({
+  base: mode === 'production' ? '/donnee-pokedex-vuetify/' : undefined,
   plugins: [
     VueRouter(),
     Vue({
       template: { transformAssetUrls }
     }),
-    // https://github.com/vuetifyjs/vuetify-loader/tree/master/packages/vite-plugin#readme
     Vuetify({
       autoImport: true,
       styles: {
@@ -52,4 +51,4 @@ export default defineConfig({
   server: {
     port: 3000,
   },
-})
+}))
