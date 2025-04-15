@@ -6,26 +6,40 @@
       :key="index"
     >
       <v-expansion-panel-title>
-        <span v-html="section.title"/>
+        <span v-html="section.title" />
       </v-expansion-panel-title>
       <v-expansion-panel-text>
-        <div v-html="section.content"/>
+        <div v-html="section.content" class="markdown-content" />
       </v-expansion-panel-text>
     </v-expansion-panel>
   </v-expansion-panels>
 </template>
 
 <script setup>
-import {ref, onMounted, computed} from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import MarkdownIt from 'markdown-it';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/monokai-sublime.css'; // Tu peux changer le thème si tu veux
 
-let props = defineProps({number: String});
+const props = defineProps({ number: String });
 
-// Initialisation de MarkdownIt
-const markdown = new MarkdownIt();
+// Initialisation de MarkdownIt avec coloration syntaxique
+const markdown = new MarkdownIt({
+  html: true,
+  linkify: true,
+  highlight: function (str, lang) {
+    if (lang && hljs.getLanguage(lang)) {
+      try {
+        return `<pre class="hljs"><code>${hljs.highlight(str, { language: lang }).value}</code></pre>`;
+      } catch (__) {}
+    }
+    return `<pre class="hljs"><code>${markdown.utils.escapeHtml(str)}</code></pre>`;
+  }
+});
+
 const source = ref('');
 
-// Import dynamique du fichier Markdown
+// Chargement dynamique du fichier Markdown
 onMounted(async () => {
   try {
     const response = await fetch(`./exercices/${props.number}.md`);
@@ -37,7 +51,7 @@ onMounted(async () => {
   }
 });
 
-// Transformation du Markdown en sections d'accordéon
+// Découpage du fichier en sections
 const sections = computed(() => {
   const lines = source.value.split('\n');
   const sections = [];
@@ -46,6 +60,7 @@ const sections = computed(() => {
   lines.forEach((line) => {
     if (line.startsWith('## ')) {
       if (currentSection) {
+        currentSection.content = markdown.render(currentSection.content.trim());
         sections.push(currentSection);
       }
       currentSection = {
@@ -53,11 +68,12 @@ const sections = computed(() => {
         content: '',
       };
     } else if (currentSection) {
-      currentSection.content += markdown.render(line);
+      currentSection.content += line + '\n';
     }
   });
 
   if (currentSection) {
+    currentSection.content = markdown.render(currentSection.content.trim());
     sections.push(currentSection);
   }
 
@@ -68,11 +84,10 @@ const sections = computed(() => {
 <style scoped lang="sass">
 .v-expansion-panel-title
   :deep(h2)
-       font-size: 1.125rem
+    font-size: 1.125rem
 
 .v-expansion-panel-text
   :deep(ul)
-    padding: 0
     padding-left: 1.5rem
     margin: 0
 
@@ -80,4 +95,12 @@ const sections = computed(() => {
       padding: .25em 0
       margin: 0
 
+/* Style du code Markdown */
+.markdown-content
+  :deep(pre)
+    padding: 1rem
+    border-radius: 6px
+    overflow-x: auto
+    font-size: 0.875rem
+    margin: 1rem 0
 </style>

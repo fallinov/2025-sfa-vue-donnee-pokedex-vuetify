@@ -10,6 +10,7 @@
   "dependencies": {
     "@mdi/font": "7.4.47",
     "core-js": "^3.37.1",
+    "highlight.js": "^11.11.1",
     "markdown-it": "^14.1.0",
     "roboto-fontface": "*",
     "vue": "^3.4.31",
@@ -28,7 +29,7 @@
     "unplugin-fonts": "^1.1.1",
     "unplugin-vue-components": "^0.27.2",
     "unplugin-vue-router": "^0.10.0",
-    "vite": "^5.3.3",
+    "vite": "^6.2.6",
     "vite-plugin-vuetify": "^2.0.3",
     "vue-router": "^4.4.0"
   }

@@ -29,7 +29,7 @@ li {
 }
 
 /* CODE */
-code {
+code:not(pre code) {
   border-radius: 4px;
   line-height: 1.8;
   font-size: 0.9em;
