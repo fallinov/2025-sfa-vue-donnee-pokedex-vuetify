@@ -19,7 +19,7 @@
 import { ref, onMounted, computed } from 'vue';
 import MarkdownIt from 'markdown-it';
 import hljs from 'highlight.js';
-import 'highlight.js/styles/monokai-sublime.css'; // Tu peux changer le thème si tu veux
+import 'highlight.js/styles/atom-one-dark.css'; // Tu peux changer le thème si tu veux
 
 const props = defineProps({ number: String });
 
@@ -97,10 +97,12 @@ const sections = computed(() => {
 
 /* Style du code Markdown */
 .markdown-content
+  :deep h3
+    margin: 1em 0 0
   :deep(pre)
     padding: 1rem
     border-radius: 6px
     overflow-x: auto
     font-size: 0.875rem
-    margin: 1rem 0
+    margin: .5rem 0
 </style>

@@ -36,5 +36,11 @@ const items = ref([
     prependIcon: 'mdi-pencil-outline', // Icône pertinente pour l'exercice
     to: '/',
   },
+  {
+    title: 'Exercice 2',
+    subtitle: 'Rendu déclaratif et liaisons d’attributs',
+    prependIcon: 'mdi-pencil-outline', // Icône pertinente pour l'exercice
+    to: '/etape2',
+  },
 ]);
 </script>
