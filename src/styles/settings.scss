@@ -28,6 +28,11 @@ li {
   padding: .25em 0;
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 /* CODE https://github.com/joshdick/onedark.vim?tab=readme-ov-file */
 code:not(pre code) {
   border-radius: 4px;
@@ -38,3 +43,4 @@ code:not(pre code) {
   background: #282C34;
   color: #98c379;
 }
+

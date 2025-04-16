@@ -2,15 +2,6 @@
   <v-app class="bg-grey-lighten-5 pa-0">
     <v-navigation-drawer v-model="drawer" class="pa-0">
       <v-list item-props :items="items" nav />
-      <!--      <template #append>
-          <v-list-item
-            class="ma-2"
-            link
-            nav
-            prepend-icon="mdi-cog-outline"
-            title="Settings"
-          />
-        </template>-->
     </v-navigation-drawer>
 
     <v-app-bar border="b" class="ps-4" flat>
@@ -31,10 +22,16 @@ const drawer = ref(true)
 
 const items = ref([
   {
+    title: 'Introduction',
+    subtitle: 'Présentation & mise en place',
+    prependIcon: 'mdi-flag-checkered',
+    to: '/',
+  },
+  {
     title: ' Étape 1',
     subtitle: 'Créer les pages',
     prependIcon: 'mdi-book-open-page-variant-outline',
-    to: '/',
+    to: '/etape1',
   },
   {
     title: 'Étape 2',

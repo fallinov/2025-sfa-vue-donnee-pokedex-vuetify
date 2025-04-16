@@ -1,5 +1,5 @@
 <template>
-  <h1 class="mb-4">Exercice {{ props.number }}</h1>
+  <h1 class="mb-4">{{ title }}</h1>
   <v-expansion-panels class="mb-6" variant="accordion">
     <v-expansion-panel
       v-for="(section, index) in sections"
@@ -21,7 +21,17 @@ import MarkdownIt from 'markdown-it';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/atom-one-dark.css'; // Tu peux changer le thème si tu veux
 
-const props = defineProps({ number: String });
+// Définition des props
+const props = defineProps({
+  source: {
+    type: String,
+    required: true,
+  },
+  title: {
+    type: String,
+    default: 'Documentation',
+  },
+});
 
 // Initialisation de MarkdownIt avec coloration syntaxique
 const markdown = new MarkdownIt({
@@ -37,23 +47,28 @@ const markdown = new MarkdownIt({
   }
 });
 
-const source = ref('');
+const contenuMarkdown = ref('');
 
 // Chargement dynamique du fichier Markdown
 onMounted(async () => {
+  if (!props.source) {
+    console.error('Aucun fichier source spécifié');
+    return;
+  }
+
   try {
-    const response = await fetch(`./exercices/${props.number}.md`);
+    const response = await fetch(props.source);
     if (!response.ok) throw new Error('Erreur de chargement du fichier');
-    source.value = await response.text();
+    contenuMarkdown.value = await response.text();
   } catch (error) {
     console.error('Erreur de chargement du contenu Markdown :', error);
-    source.value = '# Erreur de chargement du contenu Markdown';
+    contenuMarkdown.value = '# Erreur de chargement du contenu Markdown';
   }
 });
 
 // Découpage du fichier en sections
 const sections = computed(() => {
-  const lines = source.value.split('\n');
+  const lines = contenuMarkdown.value.split('\n');
   const sections = [];
   let currentSection = null;
 
@@ -97,8 +112,11 @@ const sections = computed(() => {
 
 /* Style du code Markdown */
 .markdown-content
-  :deep h3
-    margin: 1em 0 0
+  :deep h1,
+  :deep h2,
+  :deep h3,
+  :deep h4
+    margin: 1.5em 0 .5em
   :deep(pre)
     padding: 1rem
     border-radius: 6px
