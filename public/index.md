@@ -1,3 +1,3 @@
-- intro.md
-- etapes/1.md
-- etapes/2.md
+# Je suis la home page
+
+coucou

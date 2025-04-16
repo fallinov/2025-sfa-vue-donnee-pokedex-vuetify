@@ -10,7 +10,12 @@
     </v-app-bar>
 
     <v-main>
-      <router-view  />
+      <v-container max-width="700">
+        <md-content-expansion-panels
+          title="Création des pages"
+          :source="`${md_souce}/${page}`"
+        />
+      </v-container>
     </v-main>
   </v-app>
 </template>
@@ -18,8 +23,10 @@
 <script setup>
 import { ref } from 'vue'
 
-const drawer = ref(true)
+const page = ref('/etapes/2.md')
 
+
+const drawer = ref(true)
 const items = ref([
   {
     title: 'Introduction',
@@ -58,4 +65,9 @@ const items = ref([
     to: '/etape5',
   },
 ]);
+
+// Récupération de l'id de l'étape depuis l'URL
+
+// Importe l'url du dépot du fichier .env
+const md_souce = import.meta.env.VITE_MD_REPO;
 </script>
