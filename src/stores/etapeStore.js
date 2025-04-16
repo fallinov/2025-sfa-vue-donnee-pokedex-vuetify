@@ -1,18 +1,5 @@
-/**
- * @file Magasin d'authentification factice
- * Utilise Pinia pour gérer les états et actions liés à l'authentification des utilisateurs.
- * Ce magasin simule la connexion et la déconnexion avec des données factices.
- * Remarque : en production, ce magasin doit être remplacé par une intégration avec une API réelle.
- * @version 1.0
- * @since 2024-01-31
- */
-
 import { defineStore } from 'pinia'
 
-/**
- * Données factices utilisées pour simuler l'authentification.
- * Inclut un utilisateur factice, un mot de passe, et un jeton d'authentification.
- */
 const utilisateurFactice = {
   email: 'sacha@pokemon.com', // Email de l'utilisateur pour la simulation.
   name: 'Sacha Ketchum', // Nom de l'utilisateur simulé.
