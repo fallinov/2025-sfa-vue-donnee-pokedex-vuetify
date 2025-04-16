@@ -31,16 +31,34 @@ const drawer = ref(true)
 
 const items = ref([
   {
-    title: 'Exercice 1',
-    subtitle: 'Rendu déclaratif et liaisons d’attributs',
-    prependIcon: 'mdi-pencil-outline', // Icône pertinente pour l'exercice
+    title: ' Étape 1',
+    subtitle: 'Créer les pages',
+    prependIcon: 'mdi-book-open-page-variant-outline',
     to: '/',
   },
   {
-    title: 'Exercice 2',
-    subtitle: 'Rendu déclaratif et liaisons d’attributs',
-    prependIcon: 'mdi-pencil-outline', // Icône pertinente pour l'exercice
+    title: 'Étape 2',
+    subtitle: 'Ajouter les liens de menu',
+    prependIcon: 'mdi-link-variant-plus',
     to: '/etape2',
+  },
+  {
+    title: 'Étape 3',
+    subtitle: 'Page Monde Pokémon',
+    prependIcon: 'mdi-earth-box',
+    to: '/etape3',
+  },
+  {
+    title: 'Étape 4',
+    subtitle: 'Page FAQ',
+    prependIcon: 'mdi-frequently-asked-questions',
+    to: '/etape4',
+  },
+  {
+    title: 'Étape 5',
+    subtitle: 'Pokémons en colonnes',
+    prependIcon: 'mdi-view-column',
+    to: '/etape5',
   },
 ]);
 </script>
