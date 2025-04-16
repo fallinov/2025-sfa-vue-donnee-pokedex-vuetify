@@ -1,7 +1,16 @@
 <template>
   <v-app class="bg-grey-lighten-5 pa-0">
     <v-navigation-drawer v-model="drawer" class="pa-0">
-      <v-list item-props :items="items" nav />
+      <v-list nav>
+        <v-list-item
+          v-for="item in items"
+          :key="item.value"
+          :subtitle="item.subtitle"
+          :title="item.title"
+          :prepend-icon="item.icon"
+          @click="page = item.link"
+        />
+      </v-list>
     </v-navigation-drawer>
 
     <v-app-bar border="b" class="ps-4" flat>
@@ -31,38 +40,38 @@ const items = ref([
   {
     title: 'Introduction',
     subtitle: 'Présentation & mise en place',
-    prependIcon: 'mdi-flag-checkered',
-    to: '/',
+    icon: 'mdi-flag-checkered',
+    link: '/index.md',
   },
   {
     title: ' Étape 1',
     subtitle: 'Créer les pages',
-    prependIcon: 'mdi-book-open-page-variant-outline',
-    to: '/etape1',
+    icon: 'mdi-book-open-page-variant-outline',
+    link: '/etapes/1.md',
   },
   {
     title: 'Étape 2',
     subtitle: 'Ajouter les liens de menu',
-    prependIcon: 'mdi-link-variant-plus',
-    to: '/etape2',
+    icon: 'mdi-link-variant-plus',
+    link: '/etapes/2.md',
   },
   {
     title: 'Étape 3',
     subtitle: 'Page Monde Pokémon',
-    prependIcon: 'mdi-earth-box',
-    to: '/etape3',
+    icon: 'mdi-earth-box',
+    link: '/etape3',
   },
   {
     title: 'Étape 4',
     subtitle: 'Page FAQ',
-    prependIcon: 'mdi-frequently-asked-questions',
-    to: '/etape4',
+    icon: 'mdi-frequently-asked-questions',
+    link: '/etape4',
   },
   {
     title: 'Étape 5',
     subtitle: 'Pokémons en colonnes',
-    prependIcon: 'mdi-view-column',
-    to: '/etape5',
+    icon: 'mdi-view-column',
+    link: '/etape5',
   },
 ]);
 
