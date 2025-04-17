@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import {ref, onMounted, computed, onUpdated} from 'vue';
 import MarkdownIt from 'markdown-it';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/atom-one-dark.css'; // Tu peux changer le thème si tu veux
@@ -46,25 +46,8 @@ const markdown = new MarkdownIt({
     return `<pre class="hljs"><code>${markdown.utils.escapeHtml(str)}</code></pre>`;
   }
 });
-
+// Contenu Markdown à interpréter
 const contenuMarkdown = ref('');
-
-// Chargement dynamique du fichier Markdown
-onMounted(async () => {
-  if (!props.source) {
-    console.error('Aucun fichier source spécifié');
-    return;
-  }
-
-  try {
-    const response = await fetch(props.source);
-    if (!response.ok) throw new Error('Erreur de chargement du fichier');
-    contenuMarkdown.value = await response.text();
-  } catch (error) {
-    console.error('Erreur de chargement du contenu Markdown :', error);
-    contenuMarkdown.value = '# Erreur de chargement du contenu Markdown';
-  }
-});
 
 // Découpage du fichier en sections
 const sections = computed(() => {
@@ -93,6 +76,37 @@ const sections = computed(() => {
   }
 
   return sections;
+});
+
+// Fonction pour charger le fichier Markdown
+async function getMarkdownContent() {
+  if (!props.source) {
+    console.error('Aucun fichier source spécifié');
+    return;
+  }
+
+  try {
+    const response = await fetch(props.source);
+    if (!response.ok) throw new Error('Erreur de chargement du fichier');
+    contenuMarkdown.value = await response.text();
+  } catch (error) {
+    console.error('Erreur de chargement du contenu Markdown :', error);
+    contenuMarkdown.value = '# Erreur de chargement du contenu Markdown';
+  }
+}
+
+// Chargement dynamique du fichier Markdown
+onMounted( () => {
+  console.log('onMounted')
+  getMarkdownContent()
+});
+// Recharger le contenu si la source change
+onUpdated(() => {
+  // Recharger le contenu si la source change
+  if (props.source) {
+    console.log('onUpdate')
+    getMarkdownContent();
+  }
 });
 </script>
 
